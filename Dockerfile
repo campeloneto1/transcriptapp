@@ -18,6 +18,8 @@ RUN pip install --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt \
     && pip show moviepy
 
+RUN python -m nltk.downloader punkt
+
 COPY . /app
 
 EXPOSE 8000
