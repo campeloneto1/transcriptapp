@@ -14,9 +14,8 @@ WORKDIR /app
 COPY requirements.txt /app/requirements.txt
 
 RUN pip install --upgrade pip \
-    && pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu \
-    && pip install imageio imageio-ffmpeg \
-    && pip install -r requirements.txt \
+    && pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu \
+    && pip install --no-cache-dir -r requirements.txt \
     && pip show moviepy
 
 COPY . /app
