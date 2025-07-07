@@ -1,10 +1,14 @@
+# summarizer.py
 
-from sumy.parsers.plaintext import PlaintextParser
-from sumy.nlp.tokenizers import Tokenizer
-from sumy.summarizers.lsa import LsaSummarizer
+import spacy
 
-def summarize_text(text, sentence_count=3):
-    parser = PlaintextParser.from_string(text, Tokenizer("portuguese"))
-    summarizer = LsaSummarizer()
-    summary = summarizer(parser.document, sentence_count)
-    return " ".join(str(sentence) for sentence in summary)
+# Certifique-se de instalar o modelo com:
+# python -m spacy download pt_core_news_sm
+nlp = spacy.load("pt_core_news_sm")
+
+def summarize_text(text, max_sentences=5):
+    doc = nlp(text)
+    sentences = list(doc.sents)
+    # Pega as primeiras frases bem formadas
+    summary = " ".join(str(sent).strip() for sent in sentences[:max_sentences])
+    return summary

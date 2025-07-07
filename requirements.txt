@@ -7,9 +7,8 @@ moviepy==1.0.3
 imageio==2.34.1
 imageio-ffmpeg==0.4.9
 
-# Sumy para resumo automático
-sumy==0.11.0
-nltk==3.8.1
-
 # Upload de arquivos
 python-multipart==0.0.9
+
+# Substituto para sumy/nltk
+spacy==3.7.4
