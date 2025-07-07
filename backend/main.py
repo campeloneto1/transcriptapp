@@ -18,11 +18,11 @@ async def upload(file: UploadFile = File(...)):
     os.remove(file_path)
 
     return f"""
-    <div class="card">
-      <div class="label">📝 Transcrição:</div>
-      <div>{text}</div>
-      <div class="label">📌 Resumo:</div>
-      <div>{summary}</div>
+    <div class="bg-white p-6 rounded-xl shadow-md">
+      <h3 class="text-lg font-semibold mb-2">📝 Transcrição</h3>
+      <p class="text-gray-700 whitespace-pre-line mb-4">{text}</p>
+      <h3 class="text-lg font-semibold mb-2">📌 Resumo</h3>
+      <p class="text-gray-700 whitespace-pre-line">{summary}</p>
     </div>
     """
 

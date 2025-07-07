@@ -4,67 +4,49 @@
     <meta charset="UTF-8" />
     <title>Transcrição e Resumo</title>
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-    <style>
-      body {
-        font-family: sans-serif;
-        padding: 20px;
-      }
-
-      .card {
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        padding: 16px;
-        margin-top: 20px;
-        background-color: #f9f9f9;
-      }
-
-      .label {
-        font-weight: bold;
-        margin-top: 10px;
-      }
-
-      .loading {
-        font-style: italic;
-        color: #555;
-        margin-top: 20px;
-      }
-
-      .hidden {
-        display: none;
-      }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-    <h2>Upload de Áudio ou Vídeo</h2>
+  <body class="bg-gray-100 text-gray-800 min-h-screen p-6">
+    <div class="max-w-2xl mx-auto">
+      <h2 class="text-2xl font-semibold mb-6">🎧 Upload de Áudio ou Vídeo</h2>
 
-    <form
-      id="uploadForm"
-      hx-post="/upload/"
-      hx-target="#result"
-      hx-indicator="#loading"
-      hx-encoding="multipart/form-data"
-    >
-      <input
-        type="file"
-        name="file"
-        accept=".mp3,.wav,.ogg,.mp4,.mkv,.avi,.mov"
-        required
-      />
-      <button type="submit">Enviar</button>
-    </form>
+      <form
+        id="uploadForm"
+        hx-post="/upload/"
+        hx-target="#result"
+        hx-indicator="#loading"
+        hx-encoding="multipart/form-data"
+        class="bg-white p-6 rounded-xl shadow-md space-y-4"
+      >
+        <input
+          type="file"
+          name="file"
+          accept=".mp3,.wav,.ogg,.mp4,.mkv,.avi,.mov"
+          required
+          class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
 
-    <div id="loading" class="loading hidden">
-      ⏳ Processando áudio... aguarde.
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200"
+        >
+          Enviar
+        </button>
+
+        <div id="loading" class="hidden text-center text-blue-600">
+          ⏳ <span class="animate-pulse">Processando áudio... aguarde.</span>
+        </div>
+      </form>
+
+      <div id="result" class="mt-6"></div>
     </div>
 
-    <div id="result"></div>
-
     <script>
-      document.body.addEventListener("htmx:configRequest", function (evt) {
+      document.body.addEventListener("htmx:configRequest", () => {
         document.getElementById("loading").classList.remove("hidden");
       });
 
-      document.body.addEventListener("htmx:afterOnLoad", function (evt) {
+      document.body.addEventListener("htmx:afterOnLoad", () => {
         document.getElementById("loading").classList.add("hidden");
       });
     </script>

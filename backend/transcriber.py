@@ -4,7 +4,7 @@ import tempfile
 import subprocess
 from moviepy.editor import VideoFileClip
 
-model = whisper.load_model("medium")
+model = whisper.load_model("small")
 
 def extract_audio(input_path):
     # Se for vídeo, extrai com moviepy
