@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <script src="https://unpkg.com/htmx.org"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <title>Transcritor de Áudio/Vídeo</title>
+</head>
+<body class="bg-gray-100 text-gray-800 p-6">
+  <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-md p-6 space-y-4">
+    <h1 class="text-2xl font-bold">Transcrição de Áudio/Vídeo</h1>
+    <form hx-post="/upload/" hx-target="#resultado" enctype="multipart/form-data">
+      <input type="file" name="file" class="border p-2 rounded w-full" required>
+      <button class="mt-2 px-4 py-2 bg-blue-600 text-white rounded">Enviar</button>
+    </form>
+    <div id="resultado" class="space-y-4 mt-4"></div>
+  </div>
+</body>
+</html>
