@@ -1,6 +1,18 @@
-fastapi
-uvicorn
-openai-whisper
-moviepy
-sumy
-python-multipart
+fastapi==0.110.2
+uvicorn==0.29.0
+
+# Whisper da OpenAI
+openai-whisper==20231117
+
+# MoviePy e dependências de vídeo
+moviepy==1.0.3
+imageio==2.34.1
+imageio-ffmpeg==0.4.9
+decorator==5.1.1  # exigido por moviepy
+
+# Sumy para resumo automático
+sumy==0.11.0
+nltk==3.8.1  # sumy depende do nltk
+
+# Upload de arquivos
+python-multipart==0.0.9
