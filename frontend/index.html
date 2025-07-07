@@ -1,20 +1,72 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <script src="https://unpkg.com/htmx.org"></script>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <title>Transcritor de Áudio/Vídeo</title>
-</head>
-<body class="bg-gray-100 text-gray-800 p-6">
-  <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-md p-6 space-y-4">
-    <h1 class="text-2xl font-bold">Transcrição de Áudio/Vídeo</h1>
-    <form hx-post="/upload/" hx-target="#resultado" enctype="multipart/form-data">
-      <input type="file" name="file" class="border p-2 rounded w-full" required>
-      <button class="mt-2 px-4 py-2 bg-blue-600 text-white rounded">Enviar</button>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Transcrição e Resumo</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 20px;
+      }
+
+      .card {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 16px;
+        margin-top: 20px;
+        background-color: #f9f9f9;
+      }
+
+      .label {
+        font-weight: bold;
+        margin-top: 10px;
+      }
+
+      .loading {
+        font-style: italic;
+        color: #555;
+        margin-top: 20px;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Upload de Áudio ou Vídeo</h2>
+
+    <form
+      id="uploadForm"
+      hx-post="/upload/"
+      hx-target="#result"
+      hx-indicator="#loading"
+      hx-encoding="multipart/form-data"
+    >
+      <input
+        type="file"
+        name="file"
+        accept=".mp3,.wav,.ogg,.mp4,.mkv,.avi,.mov"
+        required
+      />
+      <button type="submit">Enviar</button>
     </form>
-    <div id="resultado" class="space-y-4 mt-4"></div>
-  </div>
-</body>
+
+    <div id="loading" class="loading hidden">
+      ⏳ Processando áudio... aguarde.
+    </div>
+
+    <div id="result"></div>
+
+    <script>
+      document.body.addEventListener("htmx:configRequest", function (evt) {
+        document.getElementById("loading").classList.remove("hidden");
+      });
+
+      document.body.addEventListener("htmx:afterOnLoad", function (evt) {
+        document.getElementById("loading").classList.add("hidden");
+      });
+    </script>
+  </body>
 </html>

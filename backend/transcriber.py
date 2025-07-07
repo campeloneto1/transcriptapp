@@ -4,7 +4,7 @@ import tempfile
 import subprocess
 from moviepy.editor import VideoFileClip
 
-model = whisper.load_model("base")
+model = whisper.load_model("medium")
 
 def extract_audio(input_path):
     # Se for vídeo, extrai com moviepy
@@ -28,7 +28,7 @@ def extract_audio(input_path):
 def transcribe_file(path):
     try:
         audio_path = extract_audio(path)
-        result = model.transcribe(audio_path, language="pt")
+        result = model.transcribe(audio_path, task="transcribe", language="pt")
         if audio_path != path:
             os.remove(audio_path)
         return result["text"]

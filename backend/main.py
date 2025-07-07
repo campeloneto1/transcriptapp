@@ -7,7 +7,7 @@ import os
 
 app = FastAPI()
 
-@app.post("/upload/")
+@app.post("/upload/", response_class=HTMLResponse)
 async def upload(file: UploadFile = File(...)):
     file_path = f"temp_input_{file.filename}"
     with open(file_path, "wb") as f:
@@ -17,10 +17,14 @@ async def upload(file: UploadFile = File(...)):
     summary = summarize_text(text)
     os.remove(file_path)
 
-    return JSONResponse(content={
-        "transcription": text,
-        "summary": summary
-    })
+    return f"""
+    <div class="card">
+      <div class="label">📝 Transcrição:</div>
+      <div>{text}</div>
+      <div class="label">📌 Resumo:</div>
+      <div>{summary}</div>
+    </div>
+    """
 
 @app.get("/", response_class=HTMLResponse)
 async def index():
